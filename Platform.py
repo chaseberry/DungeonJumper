@@ -47,6 +47,8 @@ class Platform():
 	def pushPlayer(self, player):
 		if player.getY() <= self.rect.getBY() and player.isJumping():
 			player.fall()
+			player.moveY(self.rect.getBY() - player.getY() + 1)
+			
 
 		if self.isMoving:
 			if self.orientation == 0:

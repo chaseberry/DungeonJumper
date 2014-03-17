@@ -1,7 +1,7 @@
 import pygame, os
 from pygame.locals import *
 
-class Platform(OtherThing):
+class Platform():
 
 	def __init__(self, x, y, orientation, distance):
 		self.distance = 1
@@ -45,8 +45,12 @@ class Platform(OtherThing):
 		return self.rect.getRX()
 
 	def pushPlayer(self, player):
+		print 'here'
 		if player.getY() <= self.rect.getBY() and player.isJumping():
+			print 'here'
 			player.fall()
+			player.moveY(self.rect.getBY() - player.getY() + 1)
+			
 
 		if self.isMoving:
 			if self.orientation == 0:

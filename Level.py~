@@ -7,7 +7,7 @@ from Door import Door
 class Level:
 
 	def __init__(self, name):
-		path = os.path.dirname(__file__) + r"\Levels\\" + name
+		path = os.path.abspath(os.path.dirname(__file__) + r"\Levels\\" + name)
 		file = open(path)
 		line = file.readline()
 		line = line.split(",")
@@ -155,6 +155,7 @@ class Level:
 					if self.level[z][v].collide(player):
 						object = self.level[z][v]
 		if object != -1:
+			print object.toString()
 			object.pushPlayer(player)
 
 	def render(self, screen):
