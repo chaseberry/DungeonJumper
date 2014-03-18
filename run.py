@@ -23,6 +23,8 @@ def game_looper(level):
 				break
 			elif again[0] == 'Y' or again[0] == 'y':
 				game = Game(level)
+			elif result != -1 and result !=-2:
+				game = Game(again)
 			else:
 				break
 		else:
