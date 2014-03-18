@@ -42,7 +42,7 @@ while True:
 			print 'edit has two modes, load and new'
 			print 'edit load level_name'
 			print 'edit new x_value y_value level_name'
-		elif line[0:3] == 'edit':
+		elif line[0:4] == 'edit':
 			data = line.replace('editor','').replace('edit','').split()
 			editor = Editor(data)
 		elif line[0] == 'q' or line[0] == 'Q':

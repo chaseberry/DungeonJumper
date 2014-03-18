@@ -90,7 +90,7 @@ class Level:
 							self.level[z][v].pullPlayer(player)
 
 	def isInDoor(self, player):
-		y = player.getBottom() - 3
+		y = player.getBottom() + 3
 		x = player.getX()
 		rx = player.getRight()
 		for z in range(self.x):
@@ -125,7 +125,7 @@ class Level:
 		return 0 if maxD == 99999999 else maxD
 
 
-	def isEmptyUnder(self, player):#re-write to use y-values, not y co-ords
+	def isEmptyUnder(self, player):
 		yBot = player.getBottom()
 		y = int(math.floor((player.getBottom()) / 80))
 		x = int(math.floor((player.getX()) / 60))
