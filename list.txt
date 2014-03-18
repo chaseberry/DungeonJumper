@@ -1,8 +1,8 @@
 Demos
-Centra - increase player speed, fix collsion bug with jumping into platform, Real UI
-Sauce - Collision bug, sprites switch direction
-Beekman - level chaining (next level name at end of level?
-Reed - Collision, fix commandline running, Editor Pallet
-JEW - next level thing(level progression)
+Centra - Real UI
+Sauce - need backwards guy going upwards
+Beekman
+Reed - Editor Pallet
+JEW
 Tal - spikes, usability(features(switch? button? enemies?)), 
-	--if commandline sanitze inputs, r- restart level, level name, document
+	r- restart level, level name, document

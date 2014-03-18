@@ -15,13 +15,15 @@ class Level:
 		self.y = int(line[1])
 		self.level = [[0 for x in range(self.y)] for x in range(self.x)]
 		cur_line = 0
+		count = 0
 		line = file.readline()
-		while line is not '':
+		while cur_line < self.y:
 			data = line.split(",")
 			for z in range(len(data)):
 				self.level[z][cur_line] = self.getItem(int(data[z]), z, cur_line)
 			cur_line+=1
 			line = file.readline()
+		self.next_level = line.replace('\n','')
 	
 	def getItem(self, item_id, x, y):
 		if item_id == -1:
@@ -63,12 +65,12 @@ class Level:
 
 	def tick(self, player):
 		if self.isInDoor(player):
-			return 1
+			return self.next_level
 
 		if self.willCollide(player):
-			return -1
+			return (-1)
 		elif player.getBottom() >= (80 * self.y):
-			return -2
+			return (-2)
 
 		for z in range(self.x):
 			for v in range(self.y):

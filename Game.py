@@ -41,6 +41,7 @@ class Game:
 				sys.exit()
 		keys = pygame.key.get_pressed()
 		if keys[K_RIGHT]:
+			self.player.image = self.player.image_right
 			self.player.moveRight()
 			if self.level.willCollide(self.player):
 				self.player.moveLeft()
@@ -51,6 +52,7 @@ class Game:
 			self.player.down(self.level)
 
 		if keys[K_LEFT]:
+			self.player.image = self.player.image_left
 			self.player.moveLeft()
 			if self.level.willCollide(self.player):
 				self.player.moveRight()

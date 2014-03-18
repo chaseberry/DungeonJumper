@@ -7,9 +7,13 @@ class Player:
 		self.rect = Rect(x, y)
 		pygame.init()
 		self.upVelocity = 0
-		path = os.path.dirname(__file__) + r"\Images\player.gif"
-		self.image = pygame.image.load(path)
-		self.image.convert()
+		path = os.path.dirname(__file__) + r"\Images\player-right.gif"
+		self.image_right = pygame.image.load(path)
+		self.image_right.convert()
+		path = os.path.dirname(__file__) + r"\Images\player-left.gif"
+		self.image_left = pygame.image.load(path)
+		self.image_left.convert()
+		self.image = self.image_right
 
 	def jump(self, level):
 		if self.upVelocity == 0 and level.isObjectUnder(self):
@@ -30,10 +34,10 @@ class Player:
 				self.moveUp(-3)
 
 	def moveLeft(self):
-		self.rect.moveX(-2)
+		self.rect.moveX(-4)
 
 	def moveRight(self):
-		self.rect.moveX(2)
+		self.rect.moveX(4)
 	
 	def moveUp(self, distance):
 		self.rect.moveY(distance)
