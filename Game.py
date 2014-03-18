@@ -16,7 +16,7 @@ class Game:
 		location = self.level.findPlayer()
 		self.rectColor = (100,100,200)
 		self.player = Player(location[0] * 60 + 10, (location[1] * 80) + 30)
-		pygame.display.set_caption(level_name)
+		pygame.display.set_caption('Dungeon Jumper - ' + level_name)
 	
 	def run(self):
 		output = 0
