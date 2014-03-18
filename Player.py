@@ -13,6 +13,9 @@ class Player:
 		path = os.path.dirname(__file__) + r"\Images\player-left.gif"
 		self.image_left = pygame.image.load(path)
 		self.image_left.convert()
+		path = os.path.dirname(__file__) + r"\Images\player-up.gif"
+		self.image_up = pygame.image.load(path)
+		self.image_up.convert()
 		self.image = self.image_right
 
 	def jump(self, level):
@@ -21,6 +24,7 @@ class Player:
 
 	def up(self, level):
 		if level.isInLadder(self):
+			self.image = self.image_up
 			self.moveUp(-3)
 			if level.willCollide(self):
 				self.moveUp(3)
