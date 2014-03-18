@@ -19,11 +19,12 @@ def game_looper(level):
 			print 'You escaped that room!'
 			again = result
 		if again:
-			print again
-			if again == 'N' or again == 'n':
+			if again[0] == 'N' or again[0] == 'n':
 				break
-			elif not again[0] == 'Y' or not again[0] == 'y':
-				game = Game(again)
+			elif again[0] == 'Y' or again[0] == 'y':
+				game = Game(level)
+			else:
+				break
 		else:
 			break
 
