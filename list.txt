@@ -1,8 +1,0 @@
-Demos
-Centra - Real UI
-Sauce
-Beekman
-Reed - Editor Pallet
-JEW
-Tal - spikes, usability(features(switch? button? enemies?)), 
-	r- restart level, level name, document
