@@ -8,6 +8,7 @@ class Game:
 
 	def __init__(self, level_name):
 		pygame.init()
+		self.level_name = level_name
 		self.screen = pygame.display.set_mode((1,1))
 		self.level = Level(level_name)
 		self.screen = pygame.display.set_mode((self.level.getX() * 60,self.level.getY() * 80))
@@ -15,6 +16,7 @@ class Game:
 		location = self.level.findPlayer()
 		self.rectColor = (100,100,200)
 		self.player = Player(location[0] * 60 + 10, (location[1] * 80) + 30)
+		pygame.display.set_caption(level_name)
 	
 	def run(self):
 		output = 0
@@ -40,6 +42,10 @@ class Game:
             	 		pygame.quit() 
 				sys.exit()
 		keys = pygame.key.get_pressed()
+		if keys[K_r]:
+			self.level = Level(self.level_name)
+			location = self.level.findPlayer()
+			self.player = Player(location[0] * 60 + 10, (location[1] * 80) + 30)	
 		if keys[K_RIGHT]:
 			self.player.image = self.player.image_right
 			self.player.moveRight()
