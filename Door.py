@@ -26,6 +26,9 @@ class Door:
 	def pushPlayer(self, player):
 		pass
 
+	def isAlive(self):
+		return True
+
 	def getRX(self):
 		return self.rect.getRX()
 

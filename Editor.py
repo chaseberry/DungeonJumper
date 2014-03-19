@@ -5,6 +5,7 @@ from Wall import Wall
 from Ladder import Ladder
 from Platform import Platform
 from Door import Door
+from VanishingPlatform import VanishingPlatform
 class Editor:
 
 	def __init__(self, argv):
@@ -20,10 +21,11 @@ class Editor:
 			self.create(argv[1])
 		
 		self.block = 1
+		self.mode = True
 		self.allowedClick = True
 		self.color = (0, 0, 0)
 		self.draw()
-		self.tiles = [Wall(0,0), Platform(1,0,0,0), Door(2,0), Ladder(3,0)]
+		self.tiles = [Wall(0,0), Platform(1,0,0,0), Door(2,0), Ladder(3,0), VanishingPlatform(4,0, 1, 20)]
 		while True:
 			self.getMouse()
 			time.sleep(.1)
@@ -37,7 +39,6 @@ class Editor:
 		line = line.split(",")
 		self.x = int(line[0])
 		self.y = int(line[1])
-		self.mode = True
 		self.screen = pygame.display.set_mode((self.x * 60, self.y * 80))
 		self.level = [[0 for x in range(self.y)] for x in range(self.x)]
 		cur_line = 0
@@ -61,9 +62,12 @@ class Editor:
 			return Door(x, y)
 		elif item_id == 3:
 			return Ladder(x, y)
-		elif item_id > 4:
+		elif str(item_id)[0] == '4':
 			data = str(item_id)#0 --> up, 1--> down 2-->left 3-->right
 			return Platform(x, y, int(data[1]), int(data[2]))
+		elif str(item_id)[0] == '5':
+			data = str(item_id)
+			return VanishingPlatform(x, y, int(data[1]), int(data[2:]))
 
 	def draw(self):
 		if self.mode:
@@ -72,7 +76,8 @@ class Editor:
 				for v in range(self.y):
 					if(self.level[z][v] is not 0 and self.level[z][v] is not -1):
 						element = self.level[z][v]
-						self.screen.blit(element.draw(),(element.getX(),element.getY()))
+						if not element.draw() == None:
+							self.screen.blit(element.draw(),(element.getX(),element.getY()))
 					if(self.level[z][v] == -1):
 						pygame.draw.rect(self.screen, (0, 0, 255), (z * 60, v * 80, 60, 80))
 			for z in range(self.x):
@@ -83,7 +88,7 @@ class Editor:
 			for z in range(len(self.tiles)):
 				element = self.tiles[z]
 				self.screen.blit(element.draw(),(element.getX(),element.getY()))
-			pygame.draw.rect(self.screen, (0, 0, 255), (5 * 60, 0, 60, 80))
+			pygame.draw.rect(self.screen, (0, 0, 255), (6 * 60, 0, 60, 80))
 
 		pygame.display.update()
 
@@ -100,6 +105,8 @@ class Editor:
 			self.block = 2
 		elif keys[K_4]:
 			self.block = 4
+		elif keys[K_5]:
+			self.block = 6
 		elif keys[K_s]:
 			 self.getSave()
 			 pygame.quit()
@@ -167,6 +174,12 @@ class Editor:
 						distance = abs(x - self.start[0])
 					self.block = 4
 					self.level[self.start[0]][self.start[1]] = Platform(self.start[0], self.start[1], orientation, distance)
+			elif self.block == 6:
+				if isinstance(self.level[x][y], VanishingPlatform):
+					self.level[x][y].swapState()	
+				else:
+					self.level[x][y] = VanishingPlatform(x, y, 1, 60)
+
 		else:
 			points = pygame.mouse.get_pos()
 			x = int(math.floor(points[0] / 60))
@@ -180,9 +193,11 @@ class Editor:
 				self.block = 2
 			elif x == 3:
 				self.block = 3
-			elif x == 4:
-				self.block = 0
+			elif x== 4:
+				self.block = 6
 			elif x == 5:
+				self.block = 0
+			elif x == 6:
 				self.block = -1
 		self.draw()
 

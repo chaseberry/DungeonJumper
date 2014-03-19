@@ -35,6 +35,9 @@ class Platform():
 	def collide(self, x, y):
 		return self.rect.contains(x, y)
 
+	def isAlive(self):
+		return True
+
 	def draw(self):
 		return self.image
 	

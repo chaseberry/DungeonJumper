@@ -17,6 +17,9 @@ class Wall:
 	def getX(self):
 		return self.rect.getX()
 
+	def isAlive(self):
+		return True
+
 	def getY(self):
 		return self.rect.getY()
 

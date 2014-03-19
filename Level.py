@@ -3,6 +3,7 @@ from Wall import Wall
 from Ladder import Ladder
 from Platform import Platform
 from Door import Door
+from VanishingPlatform import VanishingPlatform
 
 class Level:
 
@@ -36,10 +37,12 @@ class Level:
 			return Door(x, y)
 		elif item_id == 3:
 			return Ladder(x, y)
-			
-		elif item_id > 4:
+		elif str(item_id)[0] == '4':
 			data = str(item_id)#0 --> up, 1--> down 2-->left 3-->right
-			return Platform(x, y, int(data[1]), int(data[2]))
+			return Platform(x, y, int(data[1]), int(data[2:]))
+		elif str(item_id)[0] == '5':
+			data = str(item_id)
+			return VanishingPlatform(x, y, int(data[1]), int(data[2:]))
 
 	def findPlayer(self):
 		for z in range(self.x):
@@ -74,7 +77,7 @@ class Level:
 
 		for z in range(self.x):
 			for v in range(self.y):
-				if isinstance(self.level[z][v], Platform):
+				if isinstance(self.level[z][v], Platform) or isinstance(self.level[z][v], VanishingPlatform):
 					self.level[z][v].tick(player)
 		return 0
 
@@ -101,7 +104,7 @@ class Level:
 		return False
 
 	def isInLadder(self, player):
-		y = player.getBottom() - 3
+		y = player.getBottom() + 3
 		x = player.getX()
 		rx = player.getRight()
 		for z in range(self.x):
@@ -119,7 +122,7 @@ class Level:
 		rx = player.getRight()
 		for z in range(self.x):
 			for v in range(self.y):
-				if self.level[z][v] != 0 and not isinstance(self.level[z][v], Ladder) and self.level[z][v].getY() > y:
+				if self.level[z][v] != 0 and not isinstance(self.level[z][v], Ladder) and self.level[z][v].getY() > y and self.level[z][v].isAlive():
 					if self.level[z][v].getX() < x < self.level[z][v].getRX() or self.level[z][v].getRX() > rx > self.level[z][v].getX():
 						maxD = min(maxD, self.level[z][v].getY() - y)
 		return 0 if maxD == 99999999 else maxD
@@ -164,6 +167,7 @@ class Level:
 			for v in range(self.y):
 				if(self.level[z][v] is not 0):
 					element = self.level[z][v]
-					screen.blit(element.draw(),(element.getX(),element.getY()))
+					if not element.draw() == None:
+						screen.blit(element.draw(),(element.getX(),element.getY()))
 		
 
